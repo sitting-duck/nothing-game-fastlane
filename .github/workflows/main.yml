@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
 jobs:
+
   build_all:
     name: build_${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
@@ -12,6 +13,7 @@ jobs:
         targetPlatform:
           - Android # Build an Android .apk standalone app.
     steps:
+
     - name: checkout
       uses: actions/checkout@v2
       with:
@@ -35,7 +37,7 @@ jobs:
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
         androidAppBundle: true
-        androidKeystoreName: nothinggame.keystore # file is in git
+        androidKeystoreName: nothinggame.keystore # file is in git might be able to remove this.
         androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
         androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }} 
@@ -47,29 +49,33 @@ jobs:
       with:
         name: Build-${{ matrix.targetPlatform }}
         path: build/${{ matrix.targetPlatform }}
-    - name: googleplaystore
-      env:
-        GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
-        ANDROID_BUILD_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }}
-        ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
+
     - name: Download Android Artifact
       uses: actions/download-artifact@v2
       with:
         name: Build-Android
         path: build/Android
+
     - name: Add Authentication
       run: echo "$GOOGLE_PLAY_KEY_FILE" > $GOOGLE_PLAY_KEY_FILE_PATH
+
     - name: Set up Fastlane
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.2
         bundler-cache: true
+
     - name: Upload to Google Play Internal
       uses: maierj/fastlane-action@v2.3.0
+      env:
+        GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
+        ANDROID_BUILD_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }}
+        ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
       with:
         lane: 'android internal' # Change to upload to a different lane
         release_status: draft
         verbose: true
+
     #- name: Cleanup to avoid storage limit
     #  if: always()
     #  uses: geekyeggo/delete-artifact@v1
