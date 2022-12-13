@@ -48,23 +48,18 @@ jobs:
     name: upload-aftifact-for-actions-download-page
     runs-on: ubuntu-latest
     needs: build_all
+    env:
+      GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
+      GOOGLE_PLAY_KEY_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }} 
+      ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
     steps: 
+    
       - name: upload
         uses: actions/upload-artifact@v2
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
 
-  fastlane:
-    name: fastlane
-    runs-on: ubuntu-latest    
-    needs: build_all
-    env:
-      GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
-      GOOGLE_PLAY_KEY_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }} 
-      ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
-    
-    steps: 
       - name: authentication
         run: echo "$GOOGLE_PLAY_KEY_FILE" > $GOOGLE_PLAY_KEY_FILE_PATH
 
