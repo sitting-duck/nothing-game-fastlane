@@ -50,17 +50,11 @@ jobs:
         name: Build-${{ matrix.targetPlatform }}
         path: build/${{ matrix.targetPlatform }}
 
-    - name: Download Android Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: Build-Android
-        path: build/Android
-
-    - name: Display structure of downloaded files
-      run: ls -R
-
     - name: Add Authentication
       run: echo "$GOOGLE_PLAY_KEY_FILE" > $GOOGLE_PLAY_KEY_FILE_PATH
+      env:
+        GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
+        ANDROID_BUILD_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }}
 
     - name: Set up Fastlane
       uses: ruby/setup-ruby@v1
