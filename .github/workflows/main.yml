@@ -45,10 +45,10 @@ jobs:
         versioning: Semantic
 
   upload_artifact:  
-    - name: upload-aftifact-for-actions-download-page
-      runs-on: ubuntu-latest
-      needs: build_all
-      steps: 
+    name: upload-aftifact-for-actions-download-page
+    runs-on: ubuntu-latest
+    needs: build_all
+    steps: 
       - name: upload
         uses: actions/upload-artifact@v2
         with:
@@ -56,10 +56,10 @@ jobs:
           path: build/${{ matrix.targetPlatform }}
 
   fastlane:
-    - name: fastlane
-      runs-on: ubuntu-latest
-      needs: build_all
-      steps: 
+    name: fastlane
+    runs-on: ubuntu-latest
+    needs: build_all
+    steps: 
 
       - name: setup-ruby
         uses: ruby/setup-ruby@v1
