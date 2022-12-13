@@ -54,7 +54,10 @@ jobs:
       ANDROID_BUILD_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }} 
       ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
     steps: 
-    
+
+      - name: printdir
+        run: ls -halpR
+
       - name: upload
         uses: actions/upload-artifact@v2
         with:
