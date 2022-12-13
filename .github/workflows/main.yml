@@ -50,7 +50,8 @@ jobs:
     needs: build_all
     env:
       GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
-      GOOGLE_PLAY_KEY_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }} 
+      GOOGLE_PLAY_KEY_FILE_PATH: ${{ format('{0}/fastlane/pc-api-5388874122748755929-382-3edf7cf6fb7b.json', github.workspace) }}
+      ANDROID_BUILD_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }} 
       ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
     steps: 
     
