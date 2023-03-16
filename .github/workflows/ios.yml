@@ -36,12 +36,6 @@ jobs:
         UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }} #temporary
       with:
         targetPlatform: ${{ matrix.targetPlatform }}
-        androidAppBundle: true
-        androidKeystoreName: nothinggame.keystore # file is in git might be able to remove this.
-        androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-        androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
-        androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }} 
-        androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }} #same as above
         versioning: Semantic
 
   upload_artifact:  
@@ -49,20 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_all
     env:
-      GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
-      GOOGLE_PLAY_KEY_FILE_PATH: ${{ format('{0}/pc-api-5388874122748755929-382-3edf7cf6fb7b.json', github.workspace) }}
-      ANDROID_BUILD_FILE_PATH: ${{ format('{0}/build/Android/Android.aab', github.workspace) }} 
-      ANDROID_PACKAGE_NAME: com.nothing.game.gelwix
     steps: 
-
       - name: upload
         uses: actions/upload-artifact@v2
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
-
-      - name: authentication
-        run: echo "$GOOGLE_PLAY_KEY_FILE" > $GOOGLE_PLAY_KEY_FILE_PATH
 
       - name: setup-ruby
         uses: ruby/setup-ruby@v1
@@ -70,12 +56,16 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
 
-      - name: upload-google-play
-        uses: maierj/fastlane-action@v2.3.0
+      - name: upload-fastlane-testflight
+        uses: fastlane/fastlane@v2.195.0
         with:
-          lane: 'ios upload_to_test_flight' # Change to upload to a different lane
-          release_status: draft
-          verbose: true
+          command: deliver
+          username: ${{ secrets.APPLE_USERNAME }}
+          password: ${{ secrets.APPLE_PASSWORD }}
+          app_identifier: "com.nothing.game.ios.gelwix"
+          ipa: build/NothingGame.ipa
+          skip_binary_upload: true
+          beta: true
 
     #- name: Cleanup to avoid storage limit
     #  if: always()
