@@ -156,6 +156,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.nothing.game.gelwix
     Standalone: com.DefaultCompany.2DProject
+    iPhone: com.nothing.game.ios.gelwix
   buildNumber:
     Standalone: 0
     iPhone: 0
