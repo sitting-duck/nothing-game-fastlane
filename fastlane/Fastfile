@@ -26,8 +26,8 @@ end
 
 platform :ios do
 
-    lane :upload_to_testflight do
-    # something
+    lane :beta do
+    upload_to_testflight(skip_waiting_for_build_processing: true)
     end
 
 end

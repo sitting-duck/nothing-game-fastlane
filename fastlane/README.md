@@ -15,13 +15,26 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android deploy
+### android internal
 
 ```sh
-[bundle exec] fastlane android deploy
+[bundle exec] fastlane android internal
 ```
 
-upload internal build to google play store
+internal
+
+----
+
+
+## iOS
+
+### ios beta
+
+```sh
+[bundle exec] fastlane ios beta
+```
+
+
 
 ----
 
