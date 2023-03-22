@@ -27,7 +27,9 @@ end
 platform :ios do
 
     lane :beta do
-    upload_to_testflight(skip_waiting_for_build_processing: true)
+    cert(username: 'ashley.tharp@gmail.com')
+    sigh(force: true, username: 'ashley.tharp@gmail.com', app_identifier: 'com.nothing.game.ios.gelwix')
+    #upload_to_testflight(skip_waiting_for_build_processing: true)
     end
 
 end
