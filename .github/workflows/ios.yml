@@ -48,22 +48,17 @@ jobs:
         with:
           name: Build-iOS
           path: build/iOS
-
       - name: setup-ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
-
-          #- name: upload-fastlane-testflight
-          #uses: maierj/fastlane-action@v3.0.0
-          #with:
-          #lane: 'beta'
-          #command: deliver
-          #username: ${{ secrets.APPLE_USERNAME }}
-          #password: ${{ secrets.APPLE_PASSWORD }}
-          #app_identifier: "com.nothing.game.ios.gelwix"
-          #skip_binary_upload: true
+      - name: upload-fastlane-testflight
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'beta'
+          command: deliver
+          skip_binary_upload: true
 
     #- name: Cleanup to avoid storage limit
     #  if: always()
