@@ -28,6 +28,13 @@ platform :ios do
 
     lane :beta do
     match
+    produce(
+        username: 'ashley.tharp@gmail.com', 
+        app_identifier: 'com.nothing.game.ios.gelwix',
+        app_name: "Nothing Game",
+        language: 'English',
+        app_version: '1.0',
+    )
     #upload_to_testflight(skip_waiting_for_build_processing: true)
     end
 
