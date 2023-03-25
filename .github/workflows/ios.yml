@@ -39,7 +39,7 @@ jobs:
       run: ls -halp build/iOS/iOS
     - name: ipa-build
       uses: yukiarrr/ios-build-action@v1.6.0
-      project-path: build/iOS/iOS/Unity-iPhone.xcodeproj
+      project-path: 'build/iOS/iOS/Unity-iPhone.xcodeproj'
       code-signing-identity: ${{ secrets.IOS_CODESIGN }}
       team-id: ${{ secrets.IOS_TEAM_ID }}
       output-path: 'nothing-game.ipa'
