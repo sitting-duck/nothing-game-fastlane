@@ -34,7 +34,11 @@ jobs:
         targetPlatform: iOS
         versioning: Semantic
         buildName: iOS
-        buildsPath: build/iOS
+        buildsPath: build
+    - name: ListBuildDir
+      run: ls -halp build
+    - name: more print
+      run: ls -halp build/iOS
 
 
   upload_artifact:  
