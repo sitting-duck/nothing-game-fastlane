@@ -41,6 +41,8 @@ jobs:
       run: ls -halp build/iOS
     - name: more more print
       run: ls -halp build/iOS/iOS
+    - name: find
+      run: find . -name *.ipa
 
 
   upload_artifact:  
