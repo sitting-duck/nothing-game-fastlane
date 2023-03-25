@@ -39,6 +39,8 @@ jobs:
       run: ls -halp build
     - name: more print
       run: ls -halp build/iOS
+    - name: more more print
+      run: ls -halp build/iOS/iOS
 
 
   upload_artifact:  
@@ -50,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: iOS
-          path: build/
+          path: build/iOS/iOS/
 
   fastlane:
     name: fastlane step
