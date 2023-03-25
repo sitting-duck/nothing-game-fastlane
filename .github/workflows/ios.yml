@@ -45,7 +45,7 @@ jobs:
         code-signing-identity: ${{ secrets.IOS_CODESIGN }}
         team-id: ${{ secrets.IOS_TEAM_ID }}
         output-path: 'nothing-game.ipa'
-        mobile-provision-base64: ${{ secrets.IOS_MOBILE_PROVISION }}
+        mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION }}
 
   upload_artifact:  
     name: upload-aftifact-for-actions-download-page
