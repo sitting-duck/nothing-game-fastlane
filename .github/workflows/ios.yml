@@ -37,6 +37,10 @@ jobs:
         buildsPath: build
     - name: more more print
       run: ls -halp build/iOS/iOS
+  ipa:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
     - name: ipa-build
       uses: yukiarrr/ios-build-action@v1.6.0
       with:
@@ -44,7 +48,7 @@ jobs:
         p12-base64: ${{ secrets.IOS_P12 }}
         code-signing-identity: ${{ secrets.IOS_CODESIGN }}
         team-id: ${{ secrets.IOS_TEAM_ID }}
-        output-path: 'nothing-game.ipa'
+        output-path: 'build/nothing-game.ipa'
         mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION }}
 
   upload_artifact:  
@@ -55,8 +59,8 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v2
         with:
-          name: iOS
-          path: build/iOS/iOS/
+          name: 'nothing-game.ipa'
+          path: 'build'
 
   fastlane:
     name: fastlane step
