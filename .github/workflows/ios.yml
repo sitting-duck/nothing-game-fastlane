@@ -5,13 +5,10 @@ on:
 jobs:
 
   build_all:
-    name: build_${{ matrix.targetPlatform }}
+    name: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        targetPlatform:
-          - iOS
     steps:
 
     - name: checkout
@@ -24,18 +21,18 @@ jobs:
       uses: actions/cache@v2
       with:
         path: Library
-        key: Library-${{ matrix.targetPlatform }}
+        key: Library-iOS
         restore-keys: |
          Library-
 
     - name: build
-      uses: game-ci/unity-builder@v2
+      uses: game-ci/unity-builder@v2.2.0
       env:
         UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }} # temporary
         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }} # temporary
         UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }} #temporary
       with:
-        targetPlatform: ${{ matrix.targetPlatform }}
+        targetPlatform: iOS
         versioning: Semantic
 
   upload_artifact:  
@@ -46,8 +43,9 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v2
         with:
-          name: iOS
+          name: Build
           path: build
+
       - name: setup-ruby
         uses: ruby/setup-ruby@v1
         with:
