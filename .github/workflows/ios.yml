@@ -34,7 +34,7 @@ jobs:
         targetPlatform: iOS
         versioning: Semantic
         buildName: iOS
-        buildsPath: build
+        buildsPath: build/iOS
 
 
   upload_artifact:  
