@@ -47,12 +47,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: iOS
-          path: build/iOS
+          path: build
       - name: setup-ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
+      - run: bundle install
       - name: upload-fastlane-testflight
         uses: maierj/fastlane-action@v3.0.0
         with:
