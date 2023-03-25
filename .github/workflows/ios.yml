@@ -41,6 +41,7 @@ jobs:
       uses: yukiarrr/ios-build-action@v1.6.0
       with:
         project-path: 'build/iOS/iOS/Unity-iPhone.xcodeproj'
+        p12-base64: ${{ secrets.IOS_P12 }}
         code-signing-identity: ${{ secrets.IOS_CODESIGN }}
         team-id: ${{ secrets.IOS_TEAM_ID }}
         output-path: 'nothing-game.ipa'
