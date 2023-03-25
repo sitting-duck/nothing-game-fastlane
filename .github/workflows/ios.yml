@@ -4,8 +4,7 @@ on:
     branches: [main]
 jobs:
 
-  build_all:
-    name: build
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
