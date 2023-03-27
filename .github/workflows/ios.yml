@@ -37,19 +37,6 @@ jobs:
         buildsPath: build
     - name: more more print
       run: ls -halp build/iOS/iOS
-  ipa:
-    runs-on: macOS-latest
-    needs: build
-    steps:
-    - name: ipa-build
-      uses: yukiarrr/ios-build-action@v1.6.0
-      with:
-        project-path: 'build/iOS/iOS/Unity-iPhone.xcodeproj'
-        p12-base64: ${{ secrets.IOS_P12 }}
-        code-signing-identity: ${{ secrets.IOS_CODESIGN }}
-        team-id: ${{ secrets.IOS_TEAM_ID }}
-        output-path: 'build/nothing-game.ipa'
-        mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION }}
 
   upload_artifact:  
     name: upload-aftifact-for-actions-download-page
@@ -59,25 +46,9 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v2
         with:
-          name: 'nothing-game.ipa'
+          name: 'iOS'
           path: 'build'
 
-  fastlane:
-    name: fastlane step
-    runs-on: macOS-latest
-    needs: upload_artifact
-    steps:
-      - name: setup-ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
-      - run: bundle install
-      - name: upload-fastlane-testflight
-        uses: maierj/fastlane-action@v3.0.0
-        with:
-          lane: 'beta'
-          verbose: true          
     #- name: Cleanup to avoid storage limit
     #  if: always()
     #  uses: geekyeggo/delete-artifact@v1
