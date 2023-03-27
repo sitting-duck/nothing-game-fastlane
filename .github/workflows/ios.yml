@@ -41,7 +41,7 @@ jobs:
   upload_artifact:  
     name: upload-aftifact-for-actions-download-page
     runs-on: macOS-latest
-    needs: ipa
+    needs: build
     steps: 
       - name: upload
         uses: actions/upload-artifact@v2
