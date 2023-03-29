@@ -28,7 +28,7 @@ match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
 #platform :ios do
 
     before_all do
-        ENV["FASTLANE_PASSWORD"] = "myGreenBeret2019"
+        ENV["FASTLANE_PASSWORD"] = "qbzy-qltb-ncuu-hsti"
     end
 
     lane :init_ci do
