@@ -64,7 +64,7 @@ match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
     lane :beta do
     match
     set_ci if ENV['CI']
-    match(type: 'appstore')
+    match(type: 'appstore', readonly: 'true')
     build_app
     upload_to_testflight(skip_waiting_for_build_processing: true)
     end
