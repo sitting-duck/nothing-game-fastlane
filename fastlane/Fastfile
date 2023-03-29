@@ -50,8 +50,9 @@ match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
         match(
             type: "appstore",
             storage_mode: "git", 
-            git_url: "git@github.com:#{match_org}/#{match_repo}.git",
-            app_identifier: ENV["IOS_BUNDLE_ID"]
+            git_url: "https://github.com/sitting-duck/nothing-game-fastlane-certs.git",
+            app_identifier: ENV["IOS_BUNDLE_ID"],
+            git_basic_authorization: "c2l0dGluZy1kdWNrOmdocF8zYzE1VERRTFdmd01SZ3NjTnRvenhzbDM5cGVzSGsyYlZTZWQ="
         )
     end
 
