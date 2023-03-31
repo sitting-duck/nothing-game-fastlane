@@ -1,14 +1,27 @@
 name: build-ios-app
+
 on:
   push:
     branches:
       - 'main'
+  workflow_dispatch: {} # to run manually
+
 jobs:
   build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Debug - Vars set?
+        run: |
+          echo "${{ toJSON(vars) }}"
+
+      - name: Debug - Secrets set?
+        run: |
+          echo "${{ toJSON(secrets) }}"
+
       - run: fastlane beta
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ vars.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
 
