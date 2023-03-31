@@ -16,10 +16,6 @@ jobs:
         run: |
           echo "${{ toJSON(vars) }}"
 
-      - name: Debug - Secrets set?
-        run: |
-          # echo "${{ toJSON(secrets) }}"
-
       - run: fastlane beta
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
