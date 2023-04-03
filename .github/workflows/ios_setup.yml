@@ -6,7 +6,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6
@@ -22,5 +22,5 @@ jobs:
           APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
 
           GH_PAT: ${{ secrets.GH_PAT }}
-          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }} # redundant?
           MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
