@@ -30,7 +30,8 @@ match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
     before_all do
         ENV["FASTLANE_USER"] = "gelwixa@gmail.com"
         #ENV["FASTLANE_PASSWORD"] = "qbzy-qltb-ncuu-hsti"
-        ENV["FASTLANE_PASSWORD"] = "myGreenBeret2019"
+        #ENV["FASTLANE_PASSWORD"] = "myGreenBeret2019"
+        ENV["FASTLANE_PASSWORD"] = "nothingGame2023!"
     end
 
     lane :init_ci do
