@@ -6,7 +6,7 @@
 #     https://docs.fastlane.tools/advanced/#appfile
 #
 for_platform :android do
-  username("ashley.tharp@gmail.com")
+  username("gelwixa@gmail.com")
   json_key_file("pc-api-5388874122748755929-382-3edf7cf6fb7b.json")
   package_name("com.nothing.game.gelwix")
 end
