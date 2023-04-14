@@ -1,14 +1,40 @@
 name: build-ios-app
+
 on:
   push:
     branches:
-      - 'main'
+      - "main"
+  workflow_dispatch: {} # to run manually
+
+env:
+  MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+  SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA: true
+
+  # TODO: Add this to secrets
+  FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ vars.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+
 jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: fastlane beta
-        env:
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      - uses: actions/checkout@v3
 
+      # errors on commit pushes only
+      # - name: Debug -- github context
+      #   run: |
+      #     echo "${{ toJSON(github) }}"
+
+      - name: Debug -- vars (repository variables)
+        run: |
+          echo "${{ toJSON(vars) }}"
+
+      # Keeps erroring out
+      # - name: Context -- secrets (repository secrets)
+      #   run: |
+      #     echo "${{ toJSON(secrets) }}" || :
+
+      - name: Debug -- env (environment variables)
+        run: |
+          echo "${{ toJSON(env) }}"
+
+      - run: fastlane beta

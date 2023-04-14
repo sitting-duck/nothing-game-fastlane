@@ -1,57 +1,56 @@
 name: nothing-game-deploy-ios
-on: 
+
+on:
   push:
     branches: [main]
-jobs:
 
+jobs:
   build:
     runs-on: macOS-latest
     strategy:
       fail-fast: false
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
 
-    - name: checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        lfs: true
+      - name: cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-iOS
+          restore-keys: |
+            Library-
 
-    - name: cache
-      uses: actions/cache@v2
-      with:
-        path: Library
-        key: Library-iOS
-        restore-keys: |
-         Library-
+      - name: build
+        uses: game-ci/unity-builder@v2.2.0
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }} # temporary
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }} # temporary
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }} #temporary
+        with:
+          targetPlatform: iOS
+          versioning: Semantic
+          buildName: iOS
+          buildsPath: build
+      - name: more more print
+        run: ls -halp build/iOS/iOS
 
-    - name: build
-      uses: game-ci/unity-builder@v2.2.0
-      env:
-        UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }} # temporary
-        UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }} # temporary
-        UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }} #temporary
-      with:
-        targetPlatform: iOS
-        versioning: Semantic
-        buildName: iOS
-        buildsPath: build
-    - name: more more print
-      run: ls -halp build/iOS/iOS
-
-  upload_artifact:  
+  upload_artifact:
     name: upload-aftifact-for-actions-download-page
     runs-on: macOS-latest
     needs: build
-    steps: 
+    steps:
       - name: upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: 'iOS'
-          path: 'build'
+          name: "iOS"
+          path: "build"
 
     #- name: Cleanup to avoid storage limit
     #  if: always()
     #  uses: geekyeggo/delete-artifact@v1
     #  with:
     #    name: Build-Android
-
